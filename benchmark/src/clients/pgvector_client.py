@@ -66,7 +66,11 @@ class PgvectorBenchClient(VectorDBClient):
         with self.conn.cursor() as cur:
             # Bump maintenance work mem for index build performance.
             cur.execute("SET maintenance_work_mem = '512MB';")
-            cur.execute("SET max_parallel_maintenance_workers = 2;")
+            # Disable parallel build: parallel HNSW workers materialise large
+            # shared-memory segments (DSM) which overflow the small /dev/shm
+            # provisioned by container runtimes (kind defaults to ~64MB).
+            # A serial build is ~30% slower but reliable across environments.
+            cur.execute("SET max_parallel_maintenance_workers = 0;")
             cur.execute(
                 f"CREATE INDEX ON {_TABLE} "
                 f"USING hnsw (embedding {ops}) "

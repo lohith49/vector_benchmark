@@ -142,7 +142,7 @@ def parse_json(content: str) -> dict[str, Any]:
 def generate_narrative(run: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
     api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
     if not api_key:
-        raise SystemExit("GOOGLE_API_KEY not set. Copy .env.example to .env and fill it in.")
+        raise SystemExit("GOOGLE_API_KEY not set. Add it to .env.")
 
     user_prompt = USER_PROMPT_TEMPLATE.format(
         config_block=render_config(run),
