@@ -36,12 +36,13 @@ jobs:
         run: npm install
 
       # When deploying to https://<user>.github.io/<repo>/ we need to set BASE_PATH=/<repo>.
-      # github.event.repository.name is the repo's short name.
+      # Derived from $GITHUB_REPOSITORY so it works for both `push` and `workflow_dispatch`.
       - name: Build (with basePath)
         working-directory: site
-        env:
-          BASE_PATH: /${{ github.event.repository.name }}
-        run: npm run build
+        run: |
+          export BASE_PATH="/${GITHUB_REPOSITORY#*/}"
+          echo "Building with BASE_PATH=$BASE_PATH"
+          npm run build
 
       - name: Disable Jekyll
         run: touch site/out/.nojekyll
