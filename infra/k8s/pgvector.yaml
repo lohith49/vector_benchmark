@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pgvector-data
+  namespace: vectorbench
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pgvector
+  namespace: vectorbench
+spec:
+  serviceName: pgvector
+  replicas: 1
+  selector:
+    matchLabels: { app: pgvector }
+  template:
+    metadata:
+      labels: { app: pgvector }
+    spec:
+      containers:
+        - name: postgres
+          image: pgvector/pgvector:pg16
+          ports:
+            - { containerPort: 5432, name: pg }
+          env:
+            - { name: POSTGRES_DB,       value: bench }
+            - { name: POSTGRES_USER,     value: bench }
+            - { name: POSTGRES_PASSWORD, value: bench }
+            - { name: PGDATA,            value: /var/lib/postgresql/data/pgdata }
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "bench", "-d", "bench"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "bench", "-d", "bench"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "500m", memory: "1Gi" }
+            limits:   { cpu: "2",    memory: "2Gi" }
+          volumeMounts:
+            - { name: data, mountPath: /var/lib/postgresql/data }
+      volumes:
+        - name: data
+          persistentVolumeClaim: { claimName: pgvector-data }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgvector
+  namespace: vectorbench
+spec:
+  type: NodePort
+  selector: { app: pgvector }
+  ports:
+    - { name: pg, port: 5432, targetPort: 5432, nodePort: 30432 }

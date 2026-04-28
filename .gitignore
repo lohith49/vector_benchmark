@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Datasets / generated artifacts
+data/
+results/
+*.hdf5
+*.h5
+bench.log
+
+# Node / Next.js
+node_modules/
+site/.next/
+site/out/
+site/next-env.d.ts
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Claude Code session config
+.claude/

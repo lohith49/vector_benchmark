@@ -1,0 +1,12 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: vectorbench
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - { containerPort: 30633, hostPort: 6333, protocol: TCP } # Qdrant HTTP
+      - { containerPort: 30634, hostPort: 6334, protocol: TCP } # Qdrant gRPC
+      - { containerPort: 30080, hostPort: 8080, protocol: TCP } # Weaviate HTTP
+      - { containerPort: 30051, hostPort: 50051, protocol: TCP } # Weaviate gRPC
+      - { containerPort: 30432, hostPort: 5433, protocol: TCP } # pgvector
+      - { containerPort: 30433, hostPort: 5434, protocol: TCP } # results-postgres

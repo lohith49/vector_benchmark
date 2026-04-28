@@ -1,0 +1,288 @@
+/* HIG-inspired tokens. Light + dark via prefers-color-scheme.
+   Typography uses the Apple system font stack. */
+
+:root {
+  --bg: #f5f5f7;            /* iOS systemGroupedBackground */
+  --surface: #ffffff;       /* secondarySystemGroupedBackground */
+  --surface-2: #fafafa;
+  --separator: rgba(60, 60, 67, 0.12);
+  --text: #1d1d1f;
+  --text-secondary: #3c3c43;
+  --text-tertiary: rgba(60, 60, 67, 0.6);
+
+  --accent: #007aff;
+  --accent-hover: #0066d6;
+
+  --green: #34c759;
+  --orange: #ff9500;
+  --red: #ff3b30;
+  --indigo: #5856d6;
+  --pink: #ff2d55;
+
+  /* Per-DB colors used by the charts. */
+  --db-qdrant: #5856d6;
+  --db-weaviate: #34c759;
+  --db-pgvector: #ff9500;
+
+  --radius-card: 16px;
+  --radius-pill: 999px;
+  --radius-sm: 10px;
+
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+  --shadow-card-strong: 0 1px 2px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.06);
+
+  --max-width: 1120px;
+  --gutter: clamp(16px, 4vw, 40px);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --surface-2: #2c2c2e;
+    --separator: rgba(84, 84, 88, 0.6);
+    --text: #f5f5f7;
+    --text-secondary: rgba(235, 235, 245, 0.78);
+    --text-tertiary: rgba(235, 235, 245, 0.52);
+
+    --accent: #0a84ff;
+    --accent-hover: #409cff;
+
+    --green: #30d158;
+    --orange: #ff9f0a;
+    --red: #ff453a;
+    --indigo: #5e5ce6;
+    --pink: #ff375f;
+
+    --db-qdrant: #7d7aff;
+    --db-weaviate: #30d158;
+    --db-pgvector: #ff9f0a;
+
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.4);
+    --shadow-card-strong: 0 1px 2px rgba(0,0,0,0.6), 0 12px 32px rgba(0,0,0,0.5);
+
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+a:hover { color: var(--accent-hover); }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 700; line-height: 1.05; }
+h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 650; line-height: 1.15; }
+h3 { font-size: 20px; font-weight: 600; }
+h4 { font-size: 17px; font-weight: 600; }
+
+p { margin: 0; }
+
+code, pre, .mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", "Courier New", monospace;
+  font-size: 14px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px;
+}
+
+.card-tight { padding: 20px; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  border: 1px solid var(--separator);
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.pill .swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.muted   { color: var(--text-secondary); }
+.subtle  { color: var(--text-tertiary); }
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--separator);
+  margin: 32px 0;
+  border: 0;
+}
+
+.section { padding: 56px 0; }
+.section + .section { padding-top: 0; }
+
+.kbd {
+  font-family: ui-monospace, "SF Mono", monospace;
+  font-size: 12px;
+  border: 1px solid var(--separator);
+  border-radius: 6px;
+  padding: 2px 6px;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+}
+
+table.results {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+table.results th,
+table.results td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--separator);
+  vertical-align: middle;
+}
+table.results th {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: var(--surface-2);
+  position: sticky;
+  top: 0;
+}
+table.results tbody tr:hover { background: var(--surface-2); }
+table.results td.num { font-variant-numeric: tabular-nums; text-align: right; }
+
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.tabs {
+  display: inline-flex;
+  background: var(--surface-2);
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 2px;
+}
+.tabs button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 120ms ease;
+}
+.tabs button[aria-pressed="true"] {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+.tabs button:hover:not([aria-pressed="true"]) { color: var(--text); }
+
+.hero-gradient {
+  background:
+    radial-gradient(1200px 500px at 20% -10%, rgba(0, 122, 255, 0.18), transparent 60%),
+    radial-gradient(900px 400px at 90% 0%, rgba(88, 86, 214, 0.18), transparent 60%);
+}
+@media (prefers-color-scheme: dark) {
+  .hero-gradient {
+    background:
+      radial-gradient(1200px 500px at 20% -10%, rgba(10, 132, 255, 0.22), transparent 60%),
+      radial-gradient(900px 400px at 90% 0%, rgba(94, 92, 230, 0.22), transparent 60%);
+  }
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+.metric {
+  background: var(--surface-2);
+  border: 1px solid var(--separator);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.metric .label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+.metric .value {
+  font-size: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+}
+
+.bullet-list { list-style: none; margin: 0; padding: 0; }
+.bullet-list li {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+}
+.bullet-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.bullet-list.weakness li::before { background: var(--orange); }
