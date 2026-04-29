@@ -63,7 +63,7 @@ export function LatencyChart({ results }: { results: Result[] }) {
             }}
             itemStyle={{ color: "var(--text)" }}
             labelStyle={{ color: "var(--text-secondary)", fontWeight: 600 }}
-            formatter={(value: number) => [`${Number(value).toFixed(2)} ms`, ""]}
+            formatter={(value: number, name: string) => [`${Number(value).toFixed(2)} ms`, name]}
           />
           <Legend wrapperStyle={{ paddingTop: 8 }} />
           {dbs.map(db => [

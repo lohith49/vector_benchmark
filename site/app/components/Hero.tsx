@@ -8,7 +8,6 @@ export function Hero({ report }: { report: ReportBundle }) {
 
   const overview = [
     { label: "Databases", value: String((dbs ?? []).length || "—") },
-    { label: "Datasets", value: String((ds ?? []).length || "—") },
     { label: "ef_search points", value: String((ef ?? []).length || "—") },
     { label: "Result rows", value: String(total) },
   ];
