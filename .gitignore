@@ -24,6 +24,7 @@ node_modules/
 site/.next/
 site/out/
 site/next-env.d.ts
+site/tsconfig.tsbuildinfo
 
 # Env / secrets
 .env
