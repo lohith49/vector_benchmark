@@ -68,15 +68,18 @@ export function ParetoChart({
           />
           <ZAxis range={[80, 80]} />
           <Tooltip
-            cursor={{ strokeDasharray: "3 3" }}
+            cursor={{ stroke: "var(--text-tertiary)", strokeDasharray: "3 3" }}
+            wrapperStyle={{ outline: "none" }}
             contentStyle={{
               background: "var(--surface)",
-              border: "1px solid var(--separator)",
+              border: "1px solid var(--separator-strong)",
               borderRadius: 12,
-              boxShadow: "var(--shadow-card)",
+              boxShadow: "var(--shadow-card-strong)",
               color: "var(--text)",
               fontSize: 13,
             }}
+            itemStyle={{ color: "var(--text)" }}
+            labelStyle={{ color: "var(--text-secondary)", fontWeight: 600 }}
             formatter={(value: number, name: string) => {
               if (name === "recall@10") return [value.toFixed(4), name];
               if (name === "p99 latency") return [`${value.toFixed(2)} ms`, name];

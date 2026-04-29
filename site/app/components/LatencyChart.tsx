@@ -51,14 +51,18 @@ export function LatencyChart({ results }: { results: Result[] }) {
             }}
           />
           <Tooltip
+            cursor={{ fill: "var(--surface-3)", fillOpacity: 0.45 }}
+            wrapperStyle={{ outline: "none" }}
             contentStyle={{
               background: "var(--surface)",
-              border: "1px solid var(--separator)",
+              border: "1px solid var(--separator-strong)",
               borderRadius: 12,
-              boxShadow: "var(--shadow-card)",
+              boxShadow: "var(--shadow-card-strong)",
               color: "var(--text)",
               fontSize: 13,
             }}
+            itemStyle={{ color: "var(--text)" }}
+            labelStyle={{ color: "var(--text-secondary)", fontWeight: 600 }}
             formatter={(value: number) => [`${Number(value).toFixed(2)} ms`, ""]}
           />
           <Legend wrapperStyle={{ paddingTop: 8 }} />

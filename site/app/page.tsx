@@ -26,7 +26,7 @@ export default function Page() {
         <section id="kpis" className="container section">
           <div className="section-head">
             <span className="badge">Leaderboard</span>
-            <h2 style={{ marginRight: "auto" }}>Who wins what</h2>
+            <h2>Who wins what</h2>
             <span className="subtle" style={{ fontSize: 13 }}>
               Per-metric leader across the run
             </span>
@@ -49,11 +49,6 @@ export default function Page() {
               {narrative.tl_dr.map((b, i) => <li key={i}>{b}</li>)}
             </ul>
           </div>
-        </section>
-
-        {/* Run config panel */}
-        <section className="container section">
-          <RunMetaPanel report={report} />
         </section>
 
         {/* Pareto chart per dataset */}
@@ -146,6 +141,18 @@ export default function Page() {
               {narrative.caveats.map((c, i) => <li key={i}>{c}</li>)}
             </ul>
           </div>
+        </section>
+
+        {/* Run config panel — placed near bottom as reference */}
+        <section id="run-config" className="container section">
+          <div className="section-head">
+            <span className="badge">Run configuration</span>
+            <h2>How this run was produced</h2>
+          </div>
+          <p className="muted" style={{ marginBottom: 20, maxWidth: 720 }}>
+            Hardware, datasets, HNSW parameters, and the run identifier — provided so the numbers above are reproducible.
+          </p>
+          <RunMetaPanel report={report} />
         </section>
 
         {/* Raw table */}
